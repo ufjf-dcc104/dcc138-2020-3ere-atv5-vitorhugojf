@@ -15,7 +15,13 @@ export default class Scene {
     }
   }
 
-  AddSprite(sprite) {
+  addSprite(sprite) {
     this.sprites.push(sprite);
+  }
+
+  step(dt) {
+    for (const sprite of this.sprites) {
+      sprite.step(dt);
+    }
   }
 }

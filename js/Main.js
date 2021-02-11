@@ -8,7 +8,9 @@ const scene = new Scene(canvas);
 const pc = new Sprite();
 const en1 = new Sprite({ x: 50, y: 50, w: 30, h: 30, color: "red" });
 
-scene.AddSprite(pc);
-scene.AddSprite(en1);
+scene.addSprite(pc);
+scene.addSprite(en1);
+
+scene.step(0.16);
 
 scene.draw();
