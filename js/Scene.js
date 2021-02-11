@@ -1,13 +1,21 @@
 export default class Scene {
+  /*Responsável por desenhar elemntros na tela em uma animação.*/
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext("2d");
+    this.sprites = [];
+  }
 
-    /*Responsável por desenhar elemntros na tela em uma animação.*/
-    constructor(canvas){
-        this.canvas = canvas;
-        this.ctx = canvas.getContext("2d");
+  draw() {
+    this.ctx.fillStyle = "grey";
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    for (let s = 0; s < this.sprites.length; s++) {
+      const sprite = this.sprites[s];
+      sprite.draw(this.ctx);
     }
+  }
 
-    draw(){
-        this.ctx.fillStyle = "grey";
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    }
+  AddSprite(sprite) {
+    this.sprites.push(sprite);
+  }
 }
