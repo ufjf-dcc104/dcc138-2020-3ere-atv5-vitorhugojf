@@ -37,7 +37,7 @@ export default class Scene {
     this.step(this.dt);
     this.draw();
 
-    this.start();
+    this.play();
     this.t0 = t;
   }
 
