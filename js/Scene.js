@@ -7,6 +7,8 @@ export default class Scene {
 
     this.t0 = 0;
     this.dt = 0;
+
+    this.idAnimation = null;
   }
 
   draw() {
@@ -28,13 +30,24 @@ export default class Scene {
     }
   }
 
-  frame(t){
+  frame(t) {
     this.t0 = this.t0 ?? t;
-    this.dt = (t - this.t0)/1000;
+    this.dt = (t - this.t0) / 1000;
 
     this.step(this.dt);
     this.draw();
 
+    this.start();
     this.t0 = t;
+  }
+
+  play() {
+    this.idAnimation = requestAnimationFrame((t) => this.frame(t));
+  }
+
+  pause() {
+    cancelAnimationFrame(this.idAnimation);
+    this.t0 = null;
+    this.dt = 0;
   }
 }

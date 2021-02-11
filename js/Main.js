@@ -5,10 +5,21 @@ const canvas = document.querySelector("canvas");
 
 const scene = new Scene(canvas);
 
-const pc = new Sprite();
+const pc = new Sprite({ vx: 10 });
 const en1 = new Sprite({ x: 50, y: 50, w: 30, h: 30, color: "red" });
 
 scene.addSprite(pc);
 scene.addSprite(en1);
 
-scene.frame(0);
+scene.play();
+
+document.addEventListener("keydown", (e) => {
+  switch (e.key) {
+    case "s":
+      scene.play();
+      break;
+    case "S":
+      scene.pause();
+      break;
+  }
+});
