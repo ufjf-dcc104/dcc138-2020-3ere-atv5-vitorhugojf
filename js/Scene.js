@@ -79,5 +79,7 @@ export default class Scene {
         this.sprites.splice(idx, 1);
       }
     }
+
+    this.spritesToRemove = [];
   }
 }
