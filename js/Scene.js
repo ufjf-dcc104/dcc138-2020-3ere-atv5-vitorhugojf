@@ -39,6 +39,7 @@ export default class Scene {
     this.step(this.dt);
     this.draw();
     this.checkColided();
+    this.removeSprites();
 
     this.play();
     this.t0 = t;
@@ -69,5 +70,14 @@ export default class Scene {
   onColision(a, b) {
     if (!this.spritesToRemove.includes(a)) this.spritesToRemove.push(a);
     if (!this.spritesToRemove.includes(b)) this.spritesToRemove.push(b);
+  }
+
+  removeSprites() {
+    for (const target of this.spritesToRemove) {
+      const idx = this.sprites.indexOf(target);
+      if (idx >= 0) {
+        this.sprites.splice(idx, 1);
+      }
+    }
   }
 }
