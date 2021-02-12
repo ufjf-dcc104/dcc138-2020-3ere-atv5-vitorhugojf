@@ -27,4 +27,13 @@ export default class Sprite {
     this.x = this.x + this.vx * dt;
     this.y = this.y + this.vy * dt;
   }
+
+  colided(other) {
+    return !(
+      this.x > other.x + other.w ||
+      this.x + this.w < other.x ||
+      this.y > other.y + other.h ||
+      this.y + this.h < other.y
+    );
+  }
 }

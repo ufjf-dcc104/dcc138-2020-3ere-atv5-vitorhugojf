@@ -36,6 +36,7 @@ export default class Scene {
 
     this.step(this.dt);
     this.draw();
+    this.checkColided();
 
     this.play();
     this.t0 = t;
@@ -49,5 +50,17 @@ export default class Scene {
     cancelAnimationFrame(this.idAnimation);
     this.t0 = null;
     this.dt = 0;
+  }
+
+  checkColided() {
+    for (let a = 0; a < this.sprites.length - 1; a++) {
+      const spriteA = this.sprites[a];
+
+      for (let b = a + 1; b < this.sprites.length; b++) {
+        const spriteB = this.sprites[b];
+
+        if (spriteA.colided(spriteB)) console.log(spriteA, spriteB);
+      }
+    }
   }
 }

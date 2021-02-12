@@ -6,7 +6,7 @@ const canvas = document.querySelector("canvas");
 const scene = new Scene(canvas);
 
 const pc = new Sprite({ vx: 10 });
-const en1 = new Sprite({ x: 50, y: 50, w: 30, h: 30, color: "red" });
+const en1 = new Sprite({ x: 150, y: 100, w: 30, h: 30, color: "red" });
 
 scene.addSprite(pc);
 scene.addSprite(en1);
