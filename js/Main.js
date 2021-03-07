@@ -1,4 +1,4 @@
-import modelMap1 from "../maps/map1.js";
+import {map1} from "../maps/maps.js";
 import AssetManager from "./AssetManager.js";
 import Map from "./Map.js";
 import Mixer from "./Mixer.js";
@@ -21,7 +21,7 @@ assets.loadAudio("boom", "assets/audios/boom.wav");
 const scene = new Scene(canvas, assets);
 
 const map = new Map(10, 14, 32);
-map.loadMap(modelMap1);
+map.loadMap(map1);
 scene.configureMap(map);
 
 scene.addSprite(new Sprite({ x: 40, y: 87, vx: 10 }));

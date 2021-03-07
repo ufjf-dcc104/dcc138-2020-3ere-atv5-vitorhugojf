@@ -79,20 +79,7 @@ export default class Sprite {
 
   rightRestrictions(map, pmx, pmy, dt) {
     if (map.tiles[pmy][pmx] != 0) {
-      const tile = {
-        x: pmx * map.size + map.size / 2,
-        y: pmy * map.size + map.size / 2,
-        w: map.size,
-        h: map.size,
-      };
-
-      this.scene.ctx.strokeStyle = "white";
-      this.scene.ctx.strokeRect(
-        tile.x - map.size / 2,
-        tile.y - map.size / 2,
-        map.size,
-        map.size
-      );
+      const tile = this.generateTile(pmx, pmy, map.size);
 
       if (this.collided(tile)) {
         this.vx = 0;
@@ -103,20 +90,7 @@ export default class Sprite {
 
   leftRestrictions(map, pmx, pmy, dt) {
     if (map.tiles[pmy][pmx] != 0) {
-      const tile = {
-        x: pmx * map.size + map.size / 2,
-        y: pmy * map.size + map.size / 2,
-        w: map.size,
-        h: map.size,
-      };
-
-      this.scene.ctx.strokeStyle = "white";
-      this.scene.ctx.strokeRect(
-        tile.x - map.size / 2,
-        tile.y - map.size / 2,
-        map.size,
-        map.size
-      );
+      const tile = this.generateTile(pmx, pmy, map.size);
 
       if (this.collided(tile)) {
         this.vx = 0;
@@ -127,20 +101,7 @@ export default class Sprite {
 
   upperRestrictions(map, pmx, pmy, dt) {
     if (map.tiles[pmy][pmx] != 0) {
-      const tile = {
-        x: pmx * map.size + map.size / 2,
-        y: pmy * map.size + map.size / 2,
-        w: map.size,
-        h: map.size,
-      };
-
-      this.scene.ctx.strokeStyle = "white";
-      this.scene.ctx.strokeRect(
-        tile.x - map.size / 2,
-        tile.y - map.size / 2,
-        map.size,
-        map.size
-      );
+      const tile = this.generateTile(pmx, pmy, map.size);
 
       if (this.collided(tile)) {
         this.vy = 0;
@@ -151,25 +112,25 @@ export default class Sprite {
 
   lowerRestrictions(map, pmx, pmy, dt) {
     if (map.tiles[pmy][pmx] != 0) {
-      const tile = {
-        x: pmx * map.size + map.size / 2,
-        y: pmy * map.size + map.size / 2,
-        w: map.size,
-        h: map.size,
-      };
-
-      this.scene.ctx.strokeStyle = "white";
-      this.scene.ctx.strokeRect(
-        tile.x - map.size / 2,
-        tile.y - map.size / 2,
-        map.size,
-        map.size
-      );
-
+      const tile = this.generateTile(pmx, pmy, map.size);
       if (this.collided(tile)) {
         this.vy = 0;
         this.y = tile.y + tile.h / 2 + this.h / 2 + 1;
       }
     }
+  }
+
+  generateTile(pmx, pmy, size) {
+    const tile = {
+      x: pmx * size + size / 2,
+      y: pmy * size + size / 2,
+      w: size,
+      h: size,
+    };
+
+    this.scene.ctx.strokeStyle = "white";
+    this.scene.ctx.strokeRect(tile.x - size / 2, tile.y - size / 2, size, size);
+
+    return tile;
   }
 }
