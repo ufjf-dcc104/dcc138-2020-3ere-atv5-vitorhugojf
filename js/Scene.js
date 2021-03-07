@@ -75,7 +75,7 @@ export default class Scene {
       for (let b = a + 1; b < this.sprites.length; b++) {
         const spriteB = this.sprites[b];
 
-        if (spriteA.colided(spriteB)) this.onCollision(spriteA, spriteB);
+        if (spriteA.collided(spriteB)) this.onCollision(spriteA, spriteB);
       }
     }
   }

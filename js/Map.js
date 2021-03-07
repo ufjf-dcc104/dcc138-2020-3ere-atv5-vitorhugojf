@@ -26,6 +26,13 @@ export default class Map {
             ctx.strokeStyle = "black";
             ctx.strokeRect(c * this.size, l * this.size, this.size, this.size);
             break;
+          case 2:
+            ctx.fillStyle = "red";
+            ctx.fillRect(c * this.size, l * this.size, this.size, this.size);
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "orange";
+            ctx.strokeRect(c * this.size, l * this.size, this.size, this.size);
+            break;
           default:
             ctx.fillStyle = "black";
             ctx.fillRect(c * this.size, l * this.size, this.size, this.size);
@@ -34,6 +41,18 @@ export default class Map {
             ctx.strokeRect(c * this.size, l * this.size, this.size, this.size);
             break;
         }
+      }
+    }
+  }
+
+  loadMap(model) {
+    this.lines = model.length;
+    this.columns = model[0]?.length ?? 0;
+    this.tiles = [];
+    for (let l = 0; l < this.lines; l++) {
+      this.tiles[l] = [];
+      for (let c = 0; c < this.columns; c++) {
+        this.tiles[l][c] = model[l][c];
       }
     }
   }

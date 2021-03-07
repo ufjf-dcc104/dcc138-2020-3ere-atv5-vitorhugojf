@@ -1,3 +1,4 @@
+import modelMap1 from "../maps/map1.js";
 import AssetManager from "./AssetManager.js";
 import Map from "./Map.js";
 import Mixer from "./Mixer.js";
@@ -5,8 +6,8 @@ import Scene from "./Scene.js";
 import Sprite from "./Sprite.js";
 
 const canvas = document.querySelector("canvas");
-canvas.width = 14*32;
-canvas.height = 10*32;
+canvas.width = 14 * 32;
+canvas.height = 10 * 32;
 
 const mixer = new Mixer(10);
 const assets = new AssetManager(mixer);
@@ -20,6 +21,7 @@ assets.loadAudio("boom", "assets/audios/boom.wav");
 const scene = new Scene(canvas, assets);
 
 const map = new Map(10, 14, 32);
+map.loadMap(modelMap1);
 scene.configureMap(map);
 
 scene.addSprite(new Sprite({ vx: 10 }));
