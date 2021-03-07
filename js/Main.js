@@ -3,13 +3,12 @@ import Scene from "./Scene.js";
 import Sprite from "./Sprite.js";
 
 const assets = new AssetManager();
-assets.loadImage("female", "assets/female.png");
-assets.loadImage("orc", "assets/orc.png");
-assets.loadImage("skelly", "assets/skelly.png");
-assets.loadAudio("coin", "assets/coin.wav");
+assets.loadImage("female", "assets/images/female.png");
+assets.loadImage("orc", "assets/images/orc.png");
+assets.loadImage("skelly", "assets/images/skelly.png");
+assets.loadAudio("coin", "assets/audios/coin.wav");
 
 const canvas = document.querySelector("canvas");
-
 const scene = new Scene(canvas, assets);
 
 scene.addSprite(new Sprite({ vx: 10 }));
