@@ -7,6 +7,7 @@ assets.loadImage("female", "assets/images/female.png");
 assets.loadImage("orc", "assets/images/orc.png");
 assets.loadImage("skelly", "assets/images/skelly.png");
 assets.loadAudio("coin", "assets/audios/coin.wav");
+assets.loadAudio("boom", "assets/audios/boom.wav");
 
 const canvas = document.querySelector("canvas");
 const scene = new Scene(canvas, assets);
@@ -27,6 +28,9 @@ document.addEventListener("keydown", (e) => {
       break;
     case "c":
       assets.audio("coin").play();
+      break;
+    case "d":
+      assets.audio("boom").play();
       break;
   }
 });
