@@ -1,9 +1,12 @@
 import AssetManager from "./AssetManager.js";
+import Map from "./Map.js";
 import Mixer from "./Mixer.js";
 import Scene from "./Scene.js";
 import Sprite from "./Sprite.js";
 
 const canvas = document.querySelector("canvas");
+canvas.width = 14*32;
+canvas.height = 10*32;
 
 const mixer = new Mixer(10);
 const assets = new AssetManager(mixer);
@@ -15,6 +18,9 @@ assets.loadAudio("coin", "assets/audios/coin.wav");
 assets.loadAudio("boom", "assets/audios/boom.wav");
 
 const scene = new Scene(canvas, assets);
+
+const map = new Map(10, 14, 32);
+scene.configureMap(map);
 
 scene.addSprite(new Sprite({ vx: 10 }));
 scene.addSprite(new Sprite({ x: 150, y: 100, w: 30, h: 30, color: "red" }));

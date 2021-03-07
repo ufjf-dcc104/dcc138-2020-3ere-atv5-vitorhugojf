@@ -28,7 +28,7 @@ export default class Sprite {
     this.y = this.y + this.vy * dt;
   }
 
-  colided(other) {
+  collided(other) {
     return !(
       this.x > other.x + other.w ||
       this.x + this.w < other.x ||

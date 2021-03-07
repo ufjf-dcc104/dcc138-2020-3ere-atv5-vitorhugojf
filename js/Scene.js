@@ -12,11 +12,15 @@ export default class Scene {
 
     this.idAnimation = null;
     this.assets = assets;
+
+    this.map = null;
   }
 
   draw() {
-    this.ctx.fillStyle = "grey";
+    this.ctx.fillStyle = "lightblue";
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+    this.map?.draw(this.ctx);
 
     if (this.assets.isLoaded()) {
       for (let s = 0; s < this.sprites.length; s++) {
@@ -47,7 +51,7 @@ export default class Scene {
 
     this.step(this.dt);
     this.draw();
-    this.checkColided();
+    this.checkCollided();
     this.removeSprites();
 
     this.play();
@@ -64,19 +68,19 @@ export default class Scene {
     this.dt = 0;
   }
 
-  checkColided() {
+  checkCollided() {
     for (let a = 0; a < this.sprites.length - 1; a++) {
       const spriteA = this.sprites[a];
 
       for (let b = a + 1; b < this.sprites.length; b++) {
         const spriteB = this.sprites[b];
 
-        if (spriteA.colided(spriteB)) this.onColision(spriteA, spriteB);
+        if (spriteA.colided(spriteB)) this.onCollision(spriteA, spriteB);
       }
     }
   }
 
-  onColision(a, b) {
+  onCollision(a, b) {
     if (!this.spritesToRemove.includes(a)) this.spritesToRemove.push(a);
     if (!this.spritesToRemove.includes(b)) this.spritesToRemove.push(b);
   }
@@ -90,5 +94,10 @@ export default class Scene {
     }
 
     this.spritesToRemove = [];
+  }
+
+  configureMap(map) {
+    this.map = map;
+    this.map.scene = this;
   }
 }
