@@ -25,7 +25,7 @@ map.loadMap(modelMap1);
 scene.configureMap(map);
 
 scene.addSprite(new Sprite({ x: 50, vx: 10 }));
-scene.addSprite(new Sprite({ x: 140, color: "red" }));
+scene.addSprite(new Sprite({ x: 180, vx: -10 , color: "red" }));
 scene.addSprite(new Sprite({ y: 70, color: "red" }));
 
 scene.play();

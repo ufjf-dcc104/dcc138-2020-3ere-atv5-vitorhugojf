@@ -50,30 +50,66 @@ export default class Sprite {
   }
 
   applyRestrictions(dt) {
-    const map = this.scene.map;
     if (this.vx > 0) {
-      const pmx = this.mx + 1;
-      const pmy = this.my;
-      if (map.tiles[pmy][pmx] != 0) {
-        const tile = {
-          x: pmx * map.size + map.size / 2,
-          y: pmy * map.size + map.size / 2,
-          w: map.size,
-          h: map.size,
-        };
+      this.rightRestrictions(dt);
+    }
+    if (this.vx < 0) {
+      this.leftRestrictions(dt);
+    }
+  }
 
-        this.scene.ctx.strokeStyle = "white";
-        this.scene.ctx.strokeRect(
-          tile.x - map.size / 2,
-          tile.y - map.size / 2,
-          map.size,
-          map.size
-        );
+  rightRestrictions(dt) {
+    const map = this.scene.map;
+    const pmx = this.mx + 1;
+    const pmy = this.my;
 
-        if (this.collided(tile)) {
-          this.vx = 0;
-          this.x = tile.x - tile.w / 2 - this.w / 2 - 1;
-        }
+    if (map.tiles[pmy][pmx] != 0) {
+      const tile = {
+        x: pmx * map.size + map.size / 2,
+        y: pmy * map.size + map.size / 2,
+        w: map.size,
+        h: map.size,
+      };
+
+      this.scene.ctx.strokeStyle = "white";
+      this.scene.ctx.strokeRect(
+        tile.x - map.size / 2,
+        tile.y - map.size / 2,
+        map.size,
+        map.size
+      );
+
+      if (this.collided(tile)) {
+        this.vx = 0;
+        this.x = tile.x - tile.w / 2 - this.w / 2 - 1;
+      }
+    }
+  }
+
+  leftRestrictions(dt) {
+    const map = this.scene.map;
+    const pmx = this.mx - 1;
+    const pmy = this.my;
+
+    if (map.tiles[pmy][pmx] != 0) {
+      const tile = {
+        x: pmx * map.size + map.size / 2,
+        y: pmy * map.size + map.size / 2,
+        w: map.size,
+        h: map.size,
+      };
+
+      this.scene.ctx.strokeStyle = "white";
+      this.scene.ctx.strokeRect(
+        tile.x - map.size / 2,
+        tile.y - map.size / 2,
+        map.size,
+        map.size
+      );
+
+      if (this.collided(tile)) {
+        this.vx = 0;
+        this.x = tile.x + tile.w / 2 + this.w / 2 + 1;
       }
     }
   }
