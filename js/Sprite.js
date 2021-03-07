@@ -56,6 +56,14 @@ export default class Sprite {
     if (this.vx < 0) {
       this.leftRestrictions(dt);
     }
+
+    if (this.vy > 0) {
+      this.upperRestrictions(dt);
+    }
+
+    if (this.vy < 0) {
+      this.lowerRestrictions(dt);
+    }
   }
 
   rightRestrictions(dt) {
@@ -110,6 +118,62 @@ export default class Sprite {
       if (this.collided(tile)) {
         this.vx = 0;
         this.x = tile.x + tile.w / 2 + this.w / 2 + 1;
+      }
+    }
+  }
+
+  upperRestrictions(dt) {
+    const map = this.scene.map;
+    const pmx = this.mx;
+    const pmy = this.my + 1;
+
+    if (map.tiles[pmy][pmx] != 0) {
+      const tile = {
+        x: pmx * map.size + map.size / 2,
+        y: pmy * map.size + map.size / 2,
+        w: map.size,
+        h: map.size,
+      };
+
+      this.scene.ctx.strokeStyle = "white";
+      this.scene.ctx.strokeRect(
+        tile.x - map.size / 2,
+        tile.y - map.size / 2,
+        map.size,
+        map.size
+      );
+
+      if (this.collided(tile)) {
+        this.vy = 0;
+        this.y = tile.y - tile.h / 2 - this.h / 2 - 1;
+      }
+    }
+  }
+
+  lowerRestrictions(dt) {
+    const map = this.scene.map;
+    const pmx = this.mx;
+    const pmy = this.my - 1;
+
+    if (map.tiles[pmy][pmx] != 0) {
+      const tile = {
+        x: pmx * map.size + map.size / 2,
+        y: pmy * map.size + map.size / 2,
+        w: map.size,
+        h: map.size,
+      };
+
+      this.scene.ctx.strokeStyle = "white";
+      this.scene.ctx.strokeRect(
+        tile.x - map.size / 2,
+        tile.y - map.size / 2,
+        map.size,
+        map.size
+      );
+
+      if (this.collided(tile)) {
+        this.vy = 0;
+        this.y = tile.y + tile.h / 2 + this.h / 2 + 1;
       }
     }
   }
