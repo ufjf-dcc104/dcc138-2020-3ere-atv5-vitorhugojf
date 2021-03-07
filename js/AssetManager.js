@@ -7,12 +7,18 @@ export default class AssetManager {
 
   loadImage(key, source) {
     const img = new Image();
+    img.addEventListener("load", () => {
+      console.log(`Imagem ${this.load}/${this.toLoad} carregada!`);
+      this.load++;
+    });
+
     img.src = source;
     this.images.set(key, img);
+    this.toLoad++;
   }
 
-  image(key){
-      return this.images.get(key);
+  image(key) {
+    return this.images.get(key);
   }
 
   progress() {
@@ -21,5 +27,9 @@ export default class AssetManager {
     }
 
     return "nada a carregar";
+  }
+
+  isLoaded() {
+      return this.load === this.toLoad;
   }
 }
