@@ -1,9 +1,10 @@
 export default class AssetManager {
-  constructor() {
+  constructor(mixer = null) {
     this.toLoad = 0;
     this.load = 0;
     this.images = new Map();
     this.audios = new Map();
+    this.mixer = mixer;
   }
 
   loadAudio(key, source) {
@@ -47,6 +48,10 @@ export default class AssetManager {
   }
 
   isLoaded() {
-      return this.load === this.toLoad;
+    return this.load === this.toLoad;
+  }
+
+  play(key) {
+    this.mixer?.play(this.audio(key));
   }
 }

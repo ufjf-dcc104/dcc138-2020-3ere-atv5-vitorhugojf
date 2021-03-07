@@ -5,14 +5,15 @@ import Sprite from "./Sprite.js";
 
 const canvas = document.querySelector("canvas");
 
-const assets = new AssetManager();
+const mixer = new Mixer(10);
+const assets = new AssetManager(mixer);
+
 assets.loadImage("female", "assets/images/female.png");
 assets.loadImage("orc", "assets/images/orc.png");
 assets.loadImage("skelly", "assets/images/skelly.png");
 assets.loadAudio("coin", "assets/audios/coin.wav");
 assets.loadAudio("boom", "assets/audios/boom.wav");
 
-const mixer = new Mixer(10);
 const scene = new Scene(canvas, assets);
 
 scene.addSprite(new Sprite({ vx: 10 }));
@@ -30,10 +31,10 @@ document.addEventListener("keydown", (e) => {
       scene.pause();
       break;
     case "c":
-      mixer.play(assets.audio("coin"));
+      assets.play("coin");
       break;
     case "d":
-      mixer.play(assets.audio("boom"));
+      assets.play("boom");
       break;
   }
 });
