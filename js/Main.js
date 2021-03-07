@@ -7,10 +7,6 @@ assets.loadImage("female", "assets/female.png");
 assets.loadImage("orc", "assets/orc.png");
 assets.loadImage("skelly", "assets/skelly.png");
 
-document.body.appendChild(assets.image("female"));
-document.body.appendChild(assets.image("orc"));
-document.body.appendChild(assets.image("skelly"));
-
 const canvas = document.querySelector("canvas");
 
 const scene = new Scene(canvas, assets);
