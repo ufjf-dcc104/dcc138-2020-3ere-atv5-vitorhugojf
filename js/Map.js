@@ -21,26 +21,22 @@ export default class Map {
         switch (this.tiles[l][c]) {
           case 1:
             ctx.fillStyle = "grey";
-            ctx.fillRect(c * this.size, l * this.size, this.size, this.size);
             ctx.lineWidth = 1;
             ctx.strokeStyle = "black";
-            ctx.strokeRect(c * this.size, l * this.size, this.size, this.size);
             break;
           case 2:
             ctx.fillStyle = "red";
-            ctx.fillRect(c * this.size, l * this.size, this.size, this.size);
             ctx.lineWidth = 1;
             ctx.strokeStyle = "orange";
-            ctx.strokeRect(c * this.size, l * this.size, this.size, this.size);
             break;
           default:
             ctx.fillStyle = "black";
-            ctx.fillRect(c * this.size, l * this.size, this.size, this.size);
             ctx.lineWidth = 1;
             ctx.strokeStyle = "grey";
-            ctx.strokeRect(c * this.size, l * this.size, this.size, this.size);
             break;
         }
+        ctx.fillRect(c * this.size, l * this.size, this.size, this.size);
+        ctx.strokeRect(c * this.size, l * this.size, this.size, this.size);
       }
     }
   }
