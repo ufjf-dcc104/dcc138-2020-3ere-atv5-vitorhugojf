@@ -1,6 +1,6 @@
 export default class Scene {
   /*Responsável por desenhar elemntros na tela em uma animação.*/
-  constructor(canvas) {
+  constructor(canvas, assets = null) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
 
@@ -11,6 +11,7 @@ export default class Scene {
     this.dt = 0;
 
     this.idAnimation = null;
+    this.assets = assets;
   }
 
   draw() {
@@ -20,6 +21,9 @@ export default class Scene {
       const sprite = this.sprites[s];
       sprite.draw(this.ctx);
     }
+
+    this.ctx.fillStyle = "yellow";
+    this.ctx.fillText(this.assets?.progress(), 10, 20);
   }
 
   addSprite(sprite) {
