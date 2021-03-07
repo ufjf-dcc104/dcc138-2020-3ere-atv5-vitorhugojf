@@ -24,9 +24,9 @@ const map = new Map(10, 14, 32);
 map.loadMap(modelMap1);
 scene.configureMap(map);
 
-scene.addSprite(new Sprite({ vx: 10 }));
-scene.addSprite(new Sprite({ x: 150, y: 100, w: 30, h: 30, color: "red" }));
-scene.addSprite(new Sprite({ x: 150, y: 40, w: 30, h: 30, color: "red" }));
+scene.addSprite(new Sprite({ x: 50, vx: 10 }));
+scene.addSprite(new Sprite({ x: 140, color: "red" }));
+scene.addSprite(new Sprite({ y: 70, color: "red" }));
 
 scene.play();
 
