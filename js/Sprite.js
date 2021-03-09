@@ -19,18 +19,12 @@ export default class Sprite {
     this.my = 0;
     this.color = color;
     this.scene = null;
+    this.assets = null;
   }
 
   draw(ctx) {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
-    ctx.strokeStyle = "blue";
-    ctx.strokeRect(
-      this.mx * this.scene.map.size,
-      this.my * this.scene.map.size,
-      this.scene.map.size,
-      this.scene.map.size
-    );
   }
 
   step(dt) {
@@ -78,44 +72,48 @@ export default class Sprite {
   }
 
   rightRestrictions(map, pmx, pmy, dt) {
-    if (map.tiles[pmy][pmx] != 0) {
+    if (map.tiles[pmy][pmx] == 1) {
       const tile = this.generateTile(pmx, pmy, map.size);
 
       if (this.collided(tile)) {
         this.vx = 0;
         this.x = tile.x - tile.w / 2 - this.w / 2 - 1;
+        this.assets.play("hit");
       }
     }
   }
 
   leftRestrictions(map, pmx, pmy, dt) {
-    if (map.tiles[pmy][pmx] != 0) {
+    if (map.tiles[pmy][pmx] == 1) {
       const tile = this.generateTile(pmx, pmy, map.size);
 
       if (this.collided(tile)) {
         this.vx = 0;
         this.x = tile.x + tile.w / 2 + this.w / 2 + 1;
+        this.assets.play("hit");
       }
     }
   }
 
   upperRestrictions(map, pmx, pmy, dt) {
-    if (map.tiles[pmy][pmx] != 0) {
+    if (map.tiles[pmy][pmx] == 1) {
       const tile = this.generateTile(pmx, pmy, map.size);
 
       if (this.collided(tile)) {
         this.vy = 0;
         this.y = tile.y - tile.h / 2 - this.h / 2 - 1;
+        this.assets.play("hit");
       }
     }
   }
 
   lowerRestrictions(map, pmx, pmy, dt) {
-    if (map.tiles[pmy][pmx] != 0) {
+    if (map.tiles[pmy][pmx] == 1) {
       const tile = this.generateTile(pmx, pmy, map.size);
       if (this.collided(tile)) {
         this.vy = 0;
         this.y = tile.y + tile.h / 2 + this.h / 2 + 1;
+        this.assets.play("hit");
       }
     }
   }
@@ -127,9 +125,6 @@ export default class Sprite {
       w: size,
       h: size,
     };
-
-    this.scene.ctx.strokeStyle = "white";
-    this.scene.ctx.strokeRect(tile.x - size / 2, tile.y - size / 2, size, size);
 
     return tile;
   }

@@ -18,25 +18,54 @@ export default class Map {
   draw(ctx) {
     for (let l = 0; l < this.lines; l++) {
       for (let c = 0; c < this.columns; c++) {
+        var assetsSource = "assets/images/maps.png";
         switch (this.tiles[l][c]) {
           case 1:
-            ctx.fillStyle = "grey";
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = "black";
+            const water = new Image();
+            water.src = assetsSource;
+            ctx.drawImage(
+              water,
+              12 * 32,
+              2 * 32,
+              32,
+              32,
+              c * this.size,
+              l * this.size,
+              this.size,
+              this.size
+            );
             break;
           case 2:
-            ctx.fillStyle = "red";
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = "orange";
+            const grass = new Image();
+            grass.src = assetsSource;
+            ctx.drawImage(
+              grass,
+              12 * 32,
+              6 * 32,
+              32,
+              32,
+              c * this.size,
+              l * this.size,
+              this.size,
+              this.size
+            );
             break;
           default:
-            ctx.fillStyle = "black";
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = "grey";
+            const earth = new Image();
+            earth.src = assetsSource;
+            ctx.drawImage(
+              earth,
+              40 * 32,
+              6 * 32,
+              32,
+              32,
+              c * this.size,
+              l * this.size,
+              this.size,
+              this.size
+            );
             break;
         }
-        ctx.fillRect(c * this.size, l * this.size, this.size, this.size);
-        ctx.strokeRect(c * this.size, l * this.size, this.size, this.size);
       }
     }
   }
