@@ -1,5 +1,7 @@
+import Sprite from "./Sprite.js";
+
 export default class Scene {
-  /*Responsável por desenhar elemntros na tela em uma animação.*/
+  /*Responsável por desenhar elementos na tela em uma animação.*/
   constructor(canvas, assets = null) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
@@ -21,7 +23,6 @@ export default class Scene {
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.map?.draw(this.ctx);
-
     if (this.assets.isLoaded()) {
       for (let s = 0; s < this.sprites.length; s++) {
         const sprite = this.sprites[s];
@@ -101,5 +102,31 @@ export default class Scene {
   configureMap(map) {
     this.map = map;
     this.map.scene = this;
+  }
+
+  drawRandomlySprites() {
+    if (this.assets.isLoaded()) {
+      const w = this.generateNumber(10, 40);
+      const h = this.generateNumber(10, 40);
+      let sprite = new Sprite({
+        x: this.generateNumber(32 + w / 2, 416 - w / 2),
+        y: this.generateNumber(32 + h / 2, 288 - h / 2),
+        vx: this.generateNumber(-20, 20),
+        vy: this.generateNumber(-20, 20),
+        w: w,
+        h: h,
+        color: "blue",
+      });
+      this.addSprite(sprite);
+    }
+
+    const interval = setInterval(() => {
+      this.drawRandomlySprites();
+      clearInterval(interval);
+    }, 150);
+  }
+
+  generateNumber(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
   }
 }

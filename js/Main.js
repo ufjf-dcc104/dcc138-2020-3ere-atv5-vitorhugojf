@@ -1,4 +1,4 @@
-import {map1} from "../maps/maps.js";
+import { map1 } from "../maps/maps.js";
 import AssetManager from "./AssetManager.js";
 import Map from "./Map.js";
 import Mixer from "./Mixer.js";
@@ -30,6 +30,7 @@ scene.addSprite(new Sprite({ x: 110, y: 70, vy: 10, color: "red" }));
 scene.addSprite(new Sprite({ y: 180, vy: -10, color: "red" }));
 
 scene.play();
+scene.drawRandomlySprites();
 
 document.addEventListener("keydown", (e) => {
   switch (e.key) {
