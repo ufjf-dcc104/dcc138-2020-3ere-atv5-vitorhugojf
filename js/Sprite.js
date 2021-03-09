@@ -74,7 +74,6 @@ export default class Sprite {
   rightRestrictions(map, pmx, pmy, dt) {
     if (map.tiles[pmy][pmx] == 1) {
       const tile = this.generateTile(pmx, pmy, map.size);
-
       if (this.collided(tile)) {
         this.vx = 0;
         this.x = tile.x - tile.w / 2 - this.w / 2 - 1;
@@ -86,7 +85,6 @@ export default class Sprite {
   leftRestrictions(map, pmx, pmy, dt) {
     if (map.tiles[pmy][pmx] == 1) {
       const tile = this.generateTile(pmx, pmy, map.size);
-
       if (this.collided(tile)) {
         this.vx = 0;
         this.x = tile.x + tile.w / 2 + this.w / 2 + 1;
@@ -98,7 +96,6 @@ export default class Sprite {
   upperRestrictions(map, pmx, pmy, dt) {
     if (map.tiles[pmy][pmx] == 1) {
       const tile = this.generateTile(pmx, pmy, map.size);
-
       if (this.collided(tile)) {
         this.vy = 0;
         this.y = tile.y - tile.h / 2 - this.h / 2 - 1;

@@ -36,7 +36,6 @@ export default class Scene {
   }
 
   addSprite(sprite) {
-    debugger
     sprite.scene = this;
     sprite.assets = this.assets;
     this.sprites.push(sprite);
@@ -108,18 +107,27 @@ export default class Scene {
 
   drawRandomlySprites() {
     if (this.assets.isLoaded()) {
-      const w = 16;
-      const h = 16;
-      let sprite = new Sprite({
-        x: this.generateNumber(32 + w / 2, 416 - w / 2),
-        y: this.generateNumber(32 + h / 2, 288 - h / 2),
-        vx: this.generateNumber(-20, 20),
-        vy: this.generateNumber(-20, 20),
-        w: w,
-        h: h,
-        color: "blue",
-      });
-      this.addSprite(sprite);
+      var isDrawn = false;
+      while (!isDrawn) {
+        const w = 16;
+        const h = 16;
+        let sprite = new Sprite({
+          x: this.generateNumber(32 + w / 2, 416 - w / 2),
+          y: this.generateNumber(32 + h / 2, 288 - h / 2),
+          vx: this.generateNumber(-20, 20),
+          vy: this.generateNumber(-20, 20),
+          w: w,
+          h: h,
+          color: "blue",
+        });
+
+        var pmx = Math.floor(sprite.x / this.map.size);
+        var pmy = Math.floor(sprite.y / this.map.size);
+        if (this.map.tiles[pmy][pmx] != 1) {
+          this.addSprite(sprite);
+          isDrawn = true;
+        }
+      }
     }
 
     const interval = setInterval(() => {
