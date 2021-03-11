@@ -19,50 +19,18 @@ export default class Map {
   draw(ctx) {
     for (let l = 0; l < this.lines; l++) {
       for (let c = 0; c < this.columns; c++) {
-        switch (this.tiles[l][c].type) {
-          case 1:
-            const water = this.assets.image("map");
-            ctx.drawImage(
-              water,
-              this.tiles[l][c].x * 32,
-              this.tiles[l][c].y * 32,
-              32,
-              32,
-              c * this.size,
-              l * this.size,
-              this.size,
-              this.size
-            );
-            break;
-          case 2:
-            const grass = this.assets.image("map");
-            ctx.drawImage(
-              grass,
-              this.tiles[l][c].x * 32,
-              this.tiles[l][c].y * 32,
-              32,
-              32,
-              c * this.size,
-              l * this.size,
-              this.size,
-              this.size
-            );
-            break;
-          default:
-            const earth = this.assets.image("map");
-            ctx.drawImage(
-              earth,
-              this.tiles[l][c].x * 32,
-              this.tiles[l][c].y * 32,
-              32,
-              32,
-              c * this.size,
-              l * this.size,
-              this.size,
-              this.size
-            );
-            break;
-        }
+        const map = this.assets.image("map");
+        ctx.drawImage(
+          map,
+          this.tiles[l][c].x * 32,
+          this.tiles[l][c].y * 32,
+          32,
+          32,
+          c * this.size,
+          l * this.size,
+          this.size,
+          this.size
+        );
       }
     }
   }
