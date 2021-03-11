@@ -1,4 +1,5 @@
 import Sprite from "./Sprite.js";
+import { getTypeValue } from "../maps/maps.js";
 
 export default class Scene {
   /*Responsável por desenhar elementos na tela em uma animação.*/
@@ -126,7 +127,7 @@ export default class Scene {
 
         var pmx = Math.floor(sprite.x / this.map.size);
         var pmy = Math.floor(sprite.y / this.map.size);
-        if (this.map.tiles[pmy][pmx].type != 1) {
+        if (!getTypeValue(this.map.tiles[pmy][pmx]).shallNotPass) {
           this.addSprite(sprite);
           isDrawn = true;
         }

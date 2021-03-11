@@ -1,3 +1,5 @@
+import { getTypeValue } from "../maps/maps.js";
+
 export default class Sprite {
   /*É responsável por modelar algo que se move na tela.*/
   constructor({
@@ -72,7 +74,7 @@ export default class Sprite {
   }
 
   rightRestrictions(map, pmx, pmy, dt) {
-    if (map.tiles[pmy][pmx].type == 1) {
+    if (getTypeValue(map.tiles[pmy][pmx]).shallNotPass) {
       const tile = this.generateTile(pmx, pmy, map.size);
       if (this.collided(tile)) {
         this.vx = 0;
@@ -83,7 +85,7 @@ export default class Sprite {
   }
 
   leftRestrictions(map, pmx, pmy, dt) {
-    if (map.tiles[pmy][pmx].type == 1) {
+    if (getTypeValue(map.tiles[pmy][pmx]).shallNotPass) {
       const tile = this.generateTile(pmx, pmy, map.size);
       if (this.collided(tile)) {
         this.vx = 0;
@@ -94,7 +96,7 @@ export default class Sprite {
   }
 
   upperRestrictions(map, pmx, pmy, dt) {
-    if (map.tiles[pmy][pmx].type == 1) {
+    if (getTypeValue(map.tiles[pmy][pmx]).shallNotPass) {
       const tile = this.generateTile(pmx, pmy, map.size);
       if (this.collided(tile)) {
         this.vy = 0;
@@ -105,7 +107,7 @@ export default class Sprite {
   }
 
   lowerRestrictions(map, pmx, pmy, dt) {
-    if (map.tiles[pmy][pmx].type == 1) {
+    if (getTypeValue(map.tiles[pmy][pmx]).shallNotPass) {
       const tile = this.generateTile(pmx, pmy, map.size);
       if (this.collided(tile)) {
         this.vy = 0;

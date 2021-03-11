@@ -1,3 +1,5 @@
+import { map, getTypeValue } from "../maps/maps.js";
+
 export default class Map {
   constructor(lines = 8, columns = 12, size = 32, assets) {
     this.lines = lines;
@@ -22,8 +24,8 @@ export default class Map {
         const map = this.assets.image("map");
         ctx.drawImage(
           map,
-          this.tiles[l][c].x * 32,
-          this.tiles[l][c].y * 32,
+          getTypeValue(this.tiles[l][c]).x * 32,
+          getTypeValue(this.tiles[l][c]).y * 32,
           32,
           32,
           c * this.size,
@@ -35,14 +37,14 @@ export default class Map {
     }
   }
 
-  loadMap(model) {
-    this.lines = model.length;
-    this.columns = model[0]?.length ?? 0;
+  loadMap() {
+    this.lines = map.length;
+    this.columns = map[0]?.length ?? 0;
     this.tiles = [];
     for (let l = 0; l < this.lines; l++) {
       this.tiles[l] = [];
       for (let c = 0; c < this.columns; c++) {
-        this.tiles[l][c] = model[l][c];
+        this.tiles[l][c] = map[l][c];
       }
     }
   }
