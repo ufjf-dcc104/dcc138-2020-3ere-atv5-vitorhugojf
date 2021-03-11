@@ -126,7 +126,7 @@ export default class Scene {
 
         var pmx = Math.floor(sprite.x / this.map.size);
         var pmy = Math.floor(sprite.y / this.map.size);
-        if (this.map.tiles[pmy][pmx] != 1) {
+        if (this.map.tiles[pmy][pmx].type != 1) {
           this.addSprite(sprite);
           isDrawn = true;
         }

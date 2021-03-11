@@ -72,7 +72,7 @@ export default class Sprite {
   }
 
   rightRestrictions(map, pmx, pmy, dt) {
-    if (map.tiles[pmy][pmx] == 1) {
+    if (map.tiles[pmy][pmx].type == 1) {
       const tile = this.generateTile(pmx, pmy, map.size);
       if (this.collided(tile)) {
         this.vx = 0;
@@ -83,7 +83,7 @@ export default class Sprite {
   }
 
   leftRestrictions(map, pmx, pmy, dt) {
-    if (map.tiles[pmy][pmx] == 1) {
+    if (map.tiles[pmy][pmx].type == 1) {
       const tile = this.generateTile(pmx, pmy, map.size);
       if (this.collided(tile)) {
         this.vx = 0;
@@ -94,7 +94,7 @@ export default class Sprite {
   }
 
   upperRestrictions(map, pmx, pmy, dt) {
-    if (map.tiles[pmy][pmx] == 1) {
+    if (map.tiles[pmy][pmx].type == 1) {
       const tile = this.generateTile(pmx, pmy, map.size);
       if (this.collided(tile)) {
         this.vy = 0;
@@ -105,7 +105,7 @@ export default class Sprite {
   }
 
   lowerRestrictions(map, pmx, pmy, dt) {
-    if (map.tiles[pmy][pmx] == 1) {
+    if (map.tiles[pmy][pmx].type == 1) {
       const tile = this.generateTile(pmx, pmy, map.size);
       if (this.collided(tile)) {
         this.vy = 0;

@@ -8,7 +8,7 @@ export default class Map {
     for (let l = 0; l < this.lines; l++) {
       this.tiles[l] = [];
       for (let c = 0; c < this.columns; c++) {
-        this.tiles[l][c] = 0;
+        this.tiles[l][c] = { type: 0, x: 0, y: 0 };
       }
     }
 
@@ -19,13 +19,13 @@ export default class Map {
   draw(ctx) {
     for (let l = 0; l < this.lines; l++) {
       for (let c = 0; c < this.columns; c++) {
-        switch (this.tiles[l][c]) {
+        switch (this.tiles[l][c].type) {
           case 1:
             const water = this.assets.image("map");
             ctx.drawImage(
               water,
-              12 * 32,
-              2 * 32,
+              this.tiles[l][c].x * 32,
+              this.tiles[l][c].y * 32,
               32,
               32,
               c * this.size,
@@ -38,8 +38,8 @@ export default class Map {
             const grass = this.assets.image("map");
             ctx.drawImage(
               grass,
-              12 * 32,
-              6 * 32,
+              this.tiles[l][c].x * 32,
+              this.tiles[l][c].y * 32,
               32,
               32,
               c * this.size,
@@ -52,8 +52,8 @@ export default class Map {
             const earth = this.assets.image("map");
             ctx.drawImage(
               earth,
-              40 * 32,
-              6 * 32,
+              this.tiles[l][c].x * 32,
+              this.tiles[l][c].y * 32,
               32,
               32,
               c * this.size,
