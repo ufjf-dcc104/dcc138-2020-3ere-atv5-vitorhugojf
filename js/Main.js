@@ -1,4 +1,4 @@
-import { map1 } from "../maps/maps.js";
+import { map as mapLayout } from "../maps/maps.js";
 import AssetManager from "./AssetManager.js";
 import Map from "./Map.js";
 import Mixer from "./Mixer.js";
@@ -15,14 +15,15 @@ const assets = new AssetManager(mixer);
 assets.loadImage("female", "assets/images/female.png");
 assets.loadImage("orc", "assets/images/orc.png");
 assets.loadImage("skelly", "assets/images/skelly.png");
+assets.loadImage("map", "assets/images/maps.png");
 assets.loadAudio("coin", "assets/audios/coin.wav");
 assets.loadAudio("boom", "assets/audios/boom.wav");
 assets.loadAudio("hit", "assets/audios/hit.wav");
 
 const scene = new Scene(canvas, assets);
 
-const map = new Map(10, 14, 32);
-map.loadMap(map1);
+const map = new Map(10, 14, 32, assets);
+map.loadMap(mapLayout);
 scene.configureMap(map);
 
 scene.addSprite(new Sprite({ x: 40, y: 87, vx: 10 }));

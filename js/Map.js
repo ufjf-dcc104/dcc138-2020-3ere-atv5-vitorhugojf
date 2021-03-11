@@ -1,5 +1,5 @@
 export default class Map {
-  constructor(lines = 8, columns = 12, size = 32) {
+  constructor(lines = 8, columns = 12, size = 32, assets) {
     this.lines = lines;
     this.columns = columns;
     this.size = size;
@@ -12,17 +12,16 @@ export default class Map {
       }
     }
 
+    this.assets = assets;
     this.scene = null;
   }
 
   draw(ctx) {
     for (let l = 0; l < this.lines; l++) {
       for (let c = 0; c < this.columns; c++) {
-        var assetsSource = "assets/images/maps.png";
         switch (this.tiles[l][c]) {
           case 1:
-            const water = new Image();
-            water.src = assetsSource;
+            const water = this.assets.image("map");
             ctx.drawImage(
               water,
               12 * 32,
@@ -36,8 +35,7 @@ export default class Map {
             );
             break;
           case 2:
-            const grass = new Image();
-            grass.src = assetsSource;
+            const grass = this.assets.image("map");
             ctx.drawImage(
               grass,
               12 * 32,
@@ -51,8 +49,7 @@ export default class Map {
             );
             break;
           default:
-            const earth = new Image();
-            earth.src = assetsSource;
+            const earth = this.assets.image("map");
             ctx.drawImage(
               earth,
               40 * 32,
