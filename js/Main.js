@@ -1,12 +1,10 @@
 import AssetManager from "./AssetManager.js";
 import Game from "./Game.js";
-import GameScene from "./GameScene.js";
 import InputManager from "./InputManager.js";
+import GameScene from "./GameScene.js";
 import LoadScene from "./LoadScene.js";
-import Map from "./Map.js";
+import EndScene from "./EndScene.js";
 import Mixer from "./Mixer.js";
-import Scene from "./Scene.js";
-import Sprite from "./Sprite.js";
 
 const canvas = document.querySelector("canvas");
 canvas.width = 14 * 32;
@@ -36,44 +34,10 @@ const game = new Game(canvas, asset, input);
 
 const loadScene = new LoadScene(canvas, asset, game);
 const gameScene = new GameScene(canvas, asset, game);
+const endScene = new EndScene(canvas, asset, game);
 game.addScene("load", loadScene);
 game.addScene("game", gameScene);
-
-const map = new Map(10, 14, 32, asset);
-map.loadMap();
-gameScene.configureMap(map);
-
-const player = new Sprite({ x: 50, y: 87 });
-player.control = function (dt) {
-  if (input.commands.get("MOVE_LEFT")) {
-    this.vx = -50;
-  } else if (input.commands.get("MOVE_RIGHT")) {
-    this.vx = +50;
-  } else {
-    this.vx = 0;
-  }
-
-  if (input.commands.get("MOVE_UP")) {
-    this.vy = -50;
-  } else if (input.commands.get("MOVE_DOWN")) {
-    this.vy = +50;
-  } else {
-    this.vy = 0;
-  }
-};
-gameScene.addSprite(player);
-
-function chasePlayer(dt) {
-  this.vx = 25 * Math.sign(player.x - this.x);
-  this.vy = 25 * Math.sign(player.y - this.y);
-}
-
-gameScene.addSprite(new Sprite({ x: 360, color: "red", control: chasePlayer }));
-gameScene.addSprite(
-  new Sprite({ x: 110, y: 70, color: "red", control: chasePlayer })
-);
-gameScene.addSprite(new Sprite({ y: 250, color: "red", control: chasePlayer }));
-gameScene.drawRandomlySprites();
+game.addScene("end", endScene);
 
 game.play();
 

@@ -11,6 +11,7 @@ export default class Sprite {
     h = 20,
     color = "white",
     control = () => {},
+    tags = [],
   } = {}) {
     this.x = x;
     this.y = y;
@@ -24,6 +25,10 @@ export default class Sprite {
     this.scene = null;
     this.assets = null;
     this.control = control;
+    this.tags = new Set();
+    tags.forEach((tag) => {
+      this.tags.add(tag);
+    });
   }
 
   draw(ctx) {
@@ -83,7 +88,7 @@ export default class Sprite {
   }
 
   rightRestrictions(map, pmx, pmy, dt) {
-    if (getTypeValue(map.tiles[pmy][pmx]).shallNotPass) {
+    if (getTypeValue(map.tiles[pmy][pmx])?.shallNotPass) {
       const tile = this.generateTile(pmx, pmy, map.size);
       if (this.collided(tile)) {
         this.vx = 0;
@@ -94,7 +99,7 @@ export default class Sprite {
   }
 
   leftRestrictions(map, pmx, pmy, dt) {
-    if (getTypeValue(map.tiles[pmy][pmx]).shallNotPass) {
+    if (getTypeValue(map.tiles[pmy][pmx])?.shallNotPass) {
       const tile = this.generateTile(pmx, pmy, map.size);
       if (this.collided(tile)) {
         this.vx = 0;
@@ -105,7 +110,7 @@ export default class Sprite {
   }
 
   upperRestrictions(map, pmx, pmy, dt) {
-    if (getTypeValue(map.tiles[pmy][pmx]).shallNotPass) {
+    if (getTypeValue(map.tiles[pmy][pmx])?.shallNotPass) {
       const tile = this.generateTile(pmx, pmy, map.size);
       if (this.collided(tile)) {
         this.vy = 0;
@@ -116,7 +121,7 @@ export default class Sprite {
   }
 
   lowerRestrictions(map, pmx, pmy, dt) {
-    if (getTypeValue(map.tiles[pmy][pmx]).shallNotPass) {
+    if (getTypeValue(map.tiles[pmy][pmx])?.shallNotPass) {
       const tile = this.generateTile(pmx, pmy, map.size);
       if (this.collided(tile)) {
         this.vy = 0;

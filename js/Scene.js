@@ -5,36 +5,10 @@ export default class Scene {
   /*Responsável por desenhar elementos na tela em uma animação.*/
   constructor(canvas, assets = null, game = null) {
     this.canvas = canvas;
-    this.ctx = canvas.getContext("2d");
-
-    this.sprites = [];
-    this.spritesToRemove = [];
-
-    this.t0 = 0;
-    this.dt = 0;
-
-    this.idAnimation = null;
+    this.ctx = canvas?.getContext("2d");
     this.assets = assets;
-
-    this.map = null;
     this.game = game;
-  }
-
-  draw() {
-    this.ctx.fillStyle = "lightblue";
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-    this.map?.draw(this.ctx);
-    if (this.assets.isLoaded()) {
-      for (let s = 0; s < this.sprites.length; s++) {
-        const sprite = this.sprites[s];
-        sprite.draw(this.ctx);
-        sprite.applyRestrictions();
-      }
-    }
-
-    this.ctx.fillStyle = "yellow";
-    this.ctx.fillText(this.assets?.progress(), 10, 20);
+    this.setup();
   }
 
   addSprite(sprite) {
@@ -60,15 +34,19 @@ export default class Scene {
     this.checkCollided();
     this.removeSprites();
 
-    this.play();
+    if (this.exec) {
+      this.play();
+    }
     this.t0 = t;
   }
 
   play() {
+    this.exec = true;
     this.idAnimation = requestAnimationFrame((t) => this.frame(t));
   }
 
   pause() {
+    this.exec = false;
     cancelAnimationFrame(this.idAnimation);
     this.t0 = null;
     this.dt = 0;
@@ -110,38 +88,13 @@ export default class Scene {
     this.map.scene = this;
   }
 
-  drawRandomlySprites() {
-    if (this.assets.isLoaded()) {
-      var isDrawn = false;
-      while (!isDrawn) {
-        const w = 16;
-        const h = 16;
-        let sprite = new Sprite({
-          x: this.generateNumber(32 + w / 2, 416 - w / 2),
-          y: this.generateNumber(32 + h / 2, 288 - h / 2),
-          vx: this.generateNumber(-20, 20),
-          vy: this.generateNumber(-20, 20),
-          w: w,
-          h: h,
-          color: "blue",
-        });
-
-        var pmx = Math.floor(sprite.x / this.map.size);
-        var pmy = Math.floor(sprite.y / this.map.size);
-        if (!getTypeValue(this.map.tiles[pmy][pmx]).shallNotPass) {
-          this.addSprite(sprite);
-          isDrawn = true;
-        }
-      }
-    }
-
-    const interval = setInterval(() => {
-      this.drawRandomlySprites();
-      clearInterval(interval);
-    }, 4000);
-  }
-
-  generateNumber(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
+  setup() {
+    this.sprites = [];
+    this.spritesToRemove = [];
+    this.t0 = 0;
+    this.dt = 0;
+    this.idAnimation = null;
+    this.map = null;
+    this.exec = true;
   }
 }
