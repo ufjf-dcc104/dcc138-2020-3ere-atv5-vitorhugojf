@@ -1,4 +1,5 @@
 import AssetManager from "./AssetManager.js";
+import Game from "./Game.js";
 import InputManager from "./InputManager.js";
 import Map from "./Map.js";
 import Mixer from "./Mixer.js";
@@ -28,7 +29,10 @@ input.configureKeyboard({
   ArrowDown: "MOVE_DOWN",
 });
 
+const game = new Game(canvas, asset, input);
+
 const scene = new Scene(canvas, asset);
+game.addScene("game", scene);
 
 const map = new Map(10, 14, 32, asset);
 map.loadMap();
@@ -60,8 +64,10 @@ function chasePlayer(dt) {
 }
 
 scene.addSprite(new Sprite({ x: 360, color: "red", control: chasePlayer }));
-scene.addSprite(new Sprite({ x: 110, y: 70, color: "red",  control: chasePlayer }));
-scene.addSprite(new Sprite({ y: 250, color: "red",  control: chasePlayer }));
+scene.addSprite(
+  new Sprite({ x: 110, y: 70, color: "red", control: chasePlayer })
+);
+scene.addSprite(new Sprite({ y: 250, color: "red", control: chasePlayer }));
 
 scene.play();
 scene.drawRandomlySprites();

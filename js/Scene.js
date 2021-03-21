@@ -17,6 +17,7 @@ export default class Scene {
     this.assets = assets;
 
     this.map = null;
+    this.game = null;
   }
 
   draw() {
