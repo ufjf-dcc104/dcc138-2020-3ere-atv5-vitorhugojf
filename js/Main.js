@@ -1,45 +1,53 @@
 import AssetManager from "./AssetManager.js";
-import Map from "./Map.js";
+import Game from "./Game.js";
+import InputManager from "./InputManager.js";
+import GameScene from "./GameScene.js";
+import LoadScene from "./LoadScene.js";
+import EndScene from "./EndScene.js";
 import Mixer from "./Mixer.js";
-import Scene from "./Scene.js";
-import Sprite from "./Sprite.js";
 
 const canvas = document.querySelector("canvas");
 canvas.width = 14 * 32;
 canvas.height = 10 * 32;
 
 const mixer = new Mixer(10);
-const assets = new AssetManager(mixer);
+const asset = new AssetManager(mixer);
 
-assets.loadImage("female", "assets/images/female.png");
-assets.loadImage("orc", "assets/images/orc.png");
-assets.loadImage("skelly", "assets/images/skelly.png");
-assets.loadImage("map", "assets/images/maps.png");
-assets.loadAudio("coin", "assets/audios/coin.wav");
-assets.loadAudio("boom", "assets/audios/boom.wav");
-assets.loadAudio("hit", "assets/audios/hit.wav");
+asset.loadImage("female", "assets/images/female.png");
+asset.loadImage("orc", "assets/images/orc.png");
+asset.loadImage("skelly", "assets/images/skelly.png");
+asset.loadImage("map", "assets/images/maps.png");
+asset.loadAudio("coin", "assets/audios/coin.wav");
+asset.loadAudio("boom", "assets/audios/boom.wav");
+asset.loadAudio("hit", "assets/audios/hit.wav");
 
-const scene = new Scene(canvas, assets);
+const input = new InputManager();
+input.configureKeyboard({
+  ArrowLeft: "MOVE_LEFT",
+  ArrowRight: "MOVE_RIGHT",
+  ArrowUp: "MOVE_UP",
+  ArrowDown: "MOVE_DOWN",
+  " ": "NEXT_SCENE",
+});
 
-const map = new Map(10, 14, 32, assets);
-map.loadMap();
-scene.configureMap(map);
+const game = new Game(canvas, asset, input);
 
-scene.addSprite(new Sprite({ x: 40, y: 87, vx: 10 }));
-scene.addSprite(new Sprite({ x: 180, vx: -10, color: "red" }));
-scene.addSprite(new Sprite({ x: 110, y: 70, vy: 10, color: "red" }));
-scene.addSprite(new Sprite({ y: 180, vy: -10, color: "red" }));
+const loadScene = new LoadScene(canvas, asset, game);
+const gameScene = new GameScene(canvas, asset, game);
+const endScene = new EndScene(canvas, asset, game);
+game.addScene("load", loadScene);
+game.addScene("game", gameScene);
+game.addScene("end", endScene);
 
-scene.play();
-scene.drawRandomlySprites();
+game.play();
 
 document.addEventListener("keydown", (e) => {
   switch (e.key) {
     case "s":
-      scene.play();
+      game.play();
       break;
     case "S":
-      scene.pause();
+      game.pause();
       break;
     case "c":
       assets.play("coin");

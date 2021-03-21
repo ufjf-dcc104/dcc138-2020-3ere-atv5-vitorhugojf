@@ -10,6 +10,8 @@ export default class Sprite {
     w = 20,
     h = 20,
     color = "white",
+    control = () => {},
+    tags = [],
   } = {}) {
     this.x = x;
     this.y = y;
@@ -22,6 +24,11 @@ export default class Sprite {
     this.color = color;
     this.scene = null;
     this.assets = null;
+    this.control = control;
+    this.tags = new Set();
+    tags.forEach((tag) => {
+      this.tags.add(tag);
+    });
   }
 
   draw(ctx) {
@@ -29,11 +36,18 @@ export default class Sprite {
     ctx.fillRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
   }
 
-  step(dt) {
+  control(dt) {}
+
+  move(dt) {
     this.x = this.x + this.vx * dt;
     this.y = this.y + this.vy * dt;
     this.mx = Math.floor(this.x / this.scene.map.size);
     this.my = Math.floor(this.y / this.scene.map.size);
+  }
+
+  step(dt) {
+    this.control(dt);
+    this.move(dt);
   }
 
   collided(other) {
@@ -74,7 +88,7 @@ export default class Sprite {
   }
 
   rightRestrictions(map, pmx, pmy, dt) {
-    if (getTypeValue(map.tiles[pmy][pmx]).shallNotPass) {
+    if (getTypeValue(map.tiles[pmy][pmx])?.shallNotPass) {
       const tile = this.generateTile(pmx, pmy, map.size);
       if (this.collided(tile)) {
         this.vx = 0;
@@ -85,7 +99,7 @@ export default class Sprite {
   }
 
   leftRestrictions(map, pmx, pmy, dt) {
-    if (getTypeValue(map.tiles[pmy][pmx]).shallNotPass) {
+    if (getTypeValue(map.tiles[pmy][pmx])?.shallNotPass) {
       const tile = this.generateTile(pmx, pmy, map.size);
       if (this.collided(tile)) {
         this.vx = 0;
@@ -96,7 +110,7 @@ export default class Sprite {
   }
 
   upperRestrictions(map, pmx, pmy, dt) {
-    if (getTypeValue(map.tiles[pmy][pmx]).shallNotPass) {
+    if (getTypeValue(map.tiles[pmy][pmx])?.shallNotPass) {
       const tile = this.generateTile(pmx, pmy, map.size);
       if (this.collided(tile)) {
         this.vy = 0;
@@ -107,7 +121,7 @@ export default class Sprite {
   }
 
   lowerRestrictions(map, pmx, pmy, dt) {
-    if (getTypeValue(map.tiles[pmy][pmx]).shallNotPass) {
+    if (getTypeValue(map.tiles[pmy][pmx])?.shallNotPass) {
       const tile = this.generateTile(pmx, pmy, map.size);
       if (this.collided(tile)) {
         this.vy = 0;

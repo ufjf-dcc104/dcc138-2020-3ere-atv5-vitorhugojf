@@ -12,6 +12,10 @@ const map = [
 ];
 
 function getTypeValue(type) {
+  if (type == null) {
+    return { x: 0, y: 0, shallNotPass: true };
+  }
+
   if (type === 0) {
     return { x: 40, y: 6, shallNotPass: false };
   }
@@ -23,6 +27,8 @@ function getTypeValue(type) {
   }
   if (type === 3) {
     return { x: 60, y: 2, shallNotPass: true };
+  } else {
+    return { x: 0, y: 0, shallNotPass: true };
   }
 }
 
