@@ -16,7 +16,6 @@ export default class InputManager {
       if (command) {
         this.commands.set(command, true);
       }
-      console.log(this.commands.get(command));
     });
 
     addEventListener("keyup", (e) => {
@@ -24,7 +23,6 @@ export default class InputManager {
       if (command) {
         this.commands.set(command, false);
       }
-      console.log(this.commands.get(command));
     });
   }
 }
