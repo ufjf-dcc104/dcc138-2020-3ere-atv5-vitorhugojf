@@ -1,4 +1,5 @@
 import AssetManager from "./AssetManager.js";
+import InputManager from "./InputManager.js";
 import Map from "./Map.js";
 import Mixer from "./Mixer.js";
 import Scene from "./Scene.js";
@@ -9,19 +10,25 @@ canvas.width = 14 * 32;
 canvas.height = 10 * 32;
 
 const mixer = new Mixer(10);
-const assets = new AssetManager(mixer);
+const asset = new AssetManager(mixer);
 
-assets.loadImage("female", "assets/images/female.png");
-assets.loadImage("orc", "assets/images/orc.png");
-assets.loadImage("skelly", "assets/images/skelly.png");
-assets.loadImage("map", "assets/images/maps.png");
-assets.loadAudio("coin", "assets/audios/coin.wav");
-assets.loadAudio("boom", "assets/audios/boom.wav");
-assets.loadAudio("hit", "assets/audios/hit.wav");
+asset.loadImage("female", "assets/images/female.png");
+asset.loadImage("orc", "assets/images/orc.png");
+asset.loadImage("skelly", "assets/images/skelly.png");
+asset.loadImage("map", "assets/images/maps.png");
+asset.loadAudio("coin", "assets/audios/coin.wav");
+asset.loadAudio("boom", "assets/audios/boom.wav");
+asset.loadAudio("hit", "assets/audios/hit.wav");
 
-const scene = new Scene(canvas, assets);
+const input = new InputManager();
+input.configureKeyboard({
+  "ArrowLeft" : "MOVE_LEFT",
+  "ArrowRight" : "MOVE_RIGHT",
+});
 
-const map = new Map(10, 14, 32, assets);
+const scene = new Scene(canvas, asset);
+
+const map = new Map(10, 14, 32, asset);
 map.loadMap();
 scene.configureMap(map);
 
