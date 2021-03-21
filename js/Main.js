@@ -24,6 +24,8 @@ const input = new InputManager();
 input.configureKeyboard({
   ArrowLeft: "MOVE_LEFT",
   ArrowRight: "MOVE_RIGHT",
+  ArrowUp: "MOVE_UP",
+  ArrowDown: "MOVE_DOWN",
 });
 
 const scene = new Scene(canvas, asset);
@@ -40,6 +42,14 @@ player.control = function (dt) {
     this.vx = +50;
   } else {
     this.vx = 0;
+  }
+
+  if (input.commands.get("MOVE_UP")) {
+    this.vy = -50;
+  } else if (input.commands.get("MOVE_DOWN")) {
+    this.vy = +50;
+  } else {
+    this.vy = 0;
   }
 };
 scene.addSprite(player);
