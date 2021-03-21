@@ -29,12 +29,13 @@ input.configureKeyboard({
   ArrowRight: "MOVE_RIGHT",
   ArrowUp: "MOVE_UP",
   ArrowDown: "MOVE_DOWN",
+  " ": "NEXT_SCENE",
 });
 
 const game = new Game(canvas, asset, input);
 
-const loadScene = new LoadScene(canvas, asset);
-const gameScene = new GameScene(canvas, asset);
+const loadScene = new LoadScene(canvas, asset, game);
+const gameScene = new GameScene(canvas, asset, game);
 game.addScene("load", loadScene);
 game.addScene("game", gameScene);
 

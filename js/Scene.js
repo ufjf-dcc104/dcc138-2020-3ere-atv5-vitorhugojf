@@ -3,7 +3,7 @@ import { getTypeValue } from "../maps/maps.js";
 
 export default class Scene {
   /*Responsável por desenhar elementos na tela em uma animação.*/
-  constructor(canvas, assets = null) {
+  constructor(canvas, assets = null, game = null) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
 
@@ -17,7 +17,7 @@ export default class Scene {
     this.assets = assets;
 
     this.map = null;
-    this.game = null;
+    this.game = game;
   }
 
   draw() {

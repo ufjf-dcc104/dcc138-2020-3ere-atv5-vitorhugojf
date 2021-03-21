@@ -18,7 +18,11 @@ export default class Game {
   }
 
   chooseScene(key) {
-    if (this.scenes.has(key)) this.scene = this.scenes.get(key);
+    if (this.scenes.has(key)) {
+      this.scene.pause();
+      this.scene = this.scenes.get(key);
+      this.scene.play();
+    }
   }
 
   play() {
