@@ -68,17 +68,17 @@ scene.addSprite(
   new Sprite({ x: 110, y: 70, color: "red", control: chasePlayer })
 );
 scene.addSprite(new Sprite({ y: 250, color: "red", control: chasePlayer }));
-
-scene.play();
 scene.drawRandomlySprites();
+
+game.play();
 
 document.addEventListener("keydown", (e) => {
   switch (e.key) {
     case "s":
-      scene.play();
+      game.play();
       break;
     case "S":
-      scene.pause();
+      game.pause();
       break;
     case "c":
       assets.play("coin");
