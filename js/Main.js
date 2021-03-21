@@ -1,6 +1,8 @@
 import AssetManager from "./AssetManager.js";
 import Game from "./Game.js";
+import GameScene from "./GameScene.js";
 import InputManager from "./InputManager.js";
+import LoadScene from "./LoadScene.js";
 import Map from "./Map.js";
 import Mixer from "./Mixer.js";
 import Scene from "./Scene.js";
@@ -31,12 +33,14 @@ input.configureKeyboard({
 
 const game = new Game(canvas, asset, input);
 
-const scene = new Scene(canvas, asset);
-game.addScene("game", scene);
+const loadScene = new LoadScene(canvas, asset);
+const gameScene = new GameScene(canvas, asset);
+game.addScene("load", loadScene);
+game.addScene("game", gameScene);
 
 const map = new Map(10, 14, 32, asset);
 map.loadMap();
-scene.configureMap(map);
+gameScene.configureMap(map);
 
 const player = new Sprite({ x: 50, y: 87 });
 player.control = function (dt) {
@@ -56,19 +60,19 @@ player.control = function (dt) {
     this.vy = 0;
   }
 };
-scene.addSprite(player);
+gameScene.addSprite(player);
 
 function chasePlayer(dt) {
   this.vx = 25 * Math.sign(player.x - this.x);
   this.vy = 25 * Math.sign(player.y - this.y);
 }
 
-scene.addSprite(new Sprite({ x: 360, color: "red", control: chasePlayer }));
-scene.addSprite(
+gameScene.addSprite(new Sprite({ x: 360, color: "red", control: chasePlayer }));
+gameScene.addSprite(
   new Sprite({ x: 110, y: 70, color: "red", control: chasePlayer })
 );
-scene.addSprite(new Sprite({ y: 250, color: "red", control: chasePlayer }));
-scene.drawRandomlySprites();
+gameScene.addSprite(new Sprite({ y: 250, color: "red", control: chasePlayer }));
+gameScene.drawRandomlySprites();
 
 game.play();
 
