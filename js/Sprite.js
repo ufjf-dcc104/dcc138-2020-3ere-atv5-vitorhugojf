@@ -10,6 +10,7 @@ export default class Sprite {
     w = 20,
     h = 20,
     color = "white",
+    control = () => {},
   } = {}) {
     this.x = x;
     this.y = y;
@@ -22,6 +23,7 @@ export default class Sprite {
     this.color = color;
     this.scene = null;
     this.assets = null;
+    this.control = control;
   }
 
   draw(ctx) {
@@ -29,9 +31,7 @@ export default class Sprite {
     ctx.fillRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
   }
 
-  control(dt) {
-
-  }
+  control(dt) {}
 
   move(dt) {
     this.x = this.x + this.vx * dt;

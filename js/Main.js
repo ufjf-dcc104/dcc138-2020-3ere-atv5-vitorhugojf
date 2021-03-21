@@ -34,7 +34,7 @@ const map = new Map(10, 14, 32, asset);
 map.loadMap();
 scene.configureMap(map);
 
-const player = new Sprite({ x: 40, y: 87 });
+const player = new Sprite({ x: 50, y: 87 });
 player.control = function (dt) {
   if (input.commands.get("MOVE_LEFT")) {
     this.vx = -50;
@@ -53,9 +53,15 @@ player.control = function (dt) {
   }
 };
 scene.addSprite(player);
-scene.addSprite(new Sprite({ x: 180, vx: -10, color: "red" }));
-scene.addSprite(new Sprite({ x: 110, y: 70, vy: 10, color: "red" }));
-scene.addSprite(new Sprite({ y: 180, vy: -10, color: "red" }));
+
+function chasePlayer(dt) {
+  this.vx = 25 * Math.sign(player.x - this.x);
+  this.vy = 25 * Math.sign(player.y - this.y);
+}
+
+scene.addSprite(new Sprite({ x: 360, color: "red", control: chasePlayer }));
+scene.addSprite(new Sprite({ x: 110, y: 70, color: "red",  control: chasePlayer }));
+scene.addSprite(new Sprite({ y: 250, color: "red",  control: chasePlayer }));
 
 scene.play();
 scene.drawRandomlySprites();
