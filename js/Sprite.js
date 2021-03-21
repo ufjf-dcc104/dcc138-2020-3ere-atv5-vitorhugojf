@@ -29,11 +29,20 @@ export default class Sprite {
     ctx.fillRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
   }
 
-  step(dt) {
+  control(dt) {
+
+  }
+
+  move(dt) {
     this.x = this.x + this.vx * dt;
     this.y = this.y + this.vy * dt;
     this.mx = Math.floor(this.x / this.scene.map.size);
     this.my = Math.floor(this.y / this.scene.map.size);
+  }
+
+  step(dt) {
+    this.control(dt);
+    this.move(dt);
   }
 
   collided(other) {

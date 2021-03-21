@@ -22,8 +22,8 @@ asset.loadAudio("hit", "assets/audios/hit.wav");
 
 const input = new InputManager();
 input.configureKeyboard({
-  "ArrowLeft" : "MOVE_LEFT",
-  "ArrowRight" : "MOVE_RIGHT",
+  ArrowLeft: "MOVE_LEFT",
+  ArrowRight: "MOVE_RIGHT",
 });
 
 const scene = new Scene(canvas, asset);
@@ -32,7 +32,17 @@ const map = new Map(10, 14, 32, asset);
 map.loadMap();
 scene.configureMap(map);
 
-scene.addSprite(new Sprite({ x: 40, y: 87, vx: 10 }));
+const player = new Sprite({ x: 40, y: 87 });
+player.control = function (dt) {
+  if (input.commands.get("MOVE_LEFT")) {
+    this.vx = -50;
+  } else if (input.commands.get("MOVE_RIGHT")) {
+    this.vx = +50;
+  } else {
+    this.vx = 0;
+  }
+};
+scene.addSprite(player);
 scene.addSprite(new Sprite({ x: 180, vx: -10, color: "red" }));
 scene.addSprite(new Sprite({ x: 110, y: 70, vy: 10, color: "red" }));
 scene.addSprite(new Sprite({ y: 180, vy: -10, color: "red" }));
